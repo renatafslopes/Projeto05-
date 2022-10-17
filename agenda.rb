@@ -1,7 +1,6 @@
 @agenda = [
-    {nome: "Maria", telefone: 999999999},
-    {nome: "João", telefone: 888888888}
-]
+    {nome: "Jorge", telefone: 951111-1111},
+    {nome: "Roberto", telefone: 92222-2222}]
 
 def todos_contatos
     @agenda.each do |contato|
@@ -24,7 +23,7 @@ def ver_contato
     nome = gets.chomp
 
     @agenda.each do |contato|
-     if contatos[:nome].downcase == (nome.downcase)
+     if contato[:nome].downcase == (nome.downcase)
       puts "#{contato[:nome]} - #{contato[:telefone]}"
      end
     end
@@ -36,7 +35,7 @@ def editar_contato
    nome = gets.chomp
    
    @agenda.each do |contato|  
-    if contatos[:nome].downcase == (nome.downcase)
+    if contato[:nome].downcase == (nome.downcase)
         print "Nome para editar (Se quiser manter o mesmo nome, aperte enter)"
         nome_salvo = contato [:nome]
 
@@ -49,11 +48,24 @@ def editar_contato
         contato [:telefone] = gets.chomp
         contato [:telefone] = contato [:telefone].empty? ? telefone_salvo : contato[:telefone]
     end 
-
-   end    
+ end    
+ puts "--------------------------------------------------------"
 end
 
-loop do
+def remover_contato
+    print "Qual nome deseja remover?:"
+    nome = gets.chomp   
+
+    @agenda.each do |contato|
+        if contato[:nome].downcase == (nome.downcase)    
+          indice = @agenda.index(contato)
+          @agenda.delete_at(indice)
+          break
+        end
+    end
+end
+
+ loop do
 
     puts "1. Contatos\n2. Adicionar\n3. Ver Contato\n4. Editar Contato\n5. Remover Contato\n0. Sair"
     codigo = gets.chomp.to_i
@@ -69,8 +81,12 @@ loop do
     when codigo == 3
          ver_contato
     when codigo == 4
-        editar_contato    
-    end    
+        editar_contato  
+    when remover == 5
+        remover_contato    
+    else
+        puts "Função não existe"
+    end  
 end
 
 
